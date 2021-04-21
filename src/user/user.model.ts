@@ -4,7 +4,7 @@ import { RecordModel } from '../record/record.model';
 
 export interface UserModel extends Base {}
 export class UserModel extends TimeStamps {
-	@prop()
+	@prop({ unique: true })
 	email: string;
 
 	@prop()
