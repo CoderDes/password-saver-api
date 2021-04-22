@@ -10,7 +10,10 @@ export class RecordService {
 	constructor(@InjectModel(RecordModel) private readonly recordModel: ModelType<RecordModel>) {}
 
 	async create(dto: CreateRecordDto): Promise<DocumentType<RecordModel>> {
-		return this.recordModel.create(dto);
+		// TODO: hash the password
+		const { password } = dto;
+		const hashedPassword = 'HASHED_PASSWORD_ON_CREATE';
+		return this.recordModel.create({...dto, password: hashedPassword });
 	}
 
 	async updateById(dto: UpdateRecordDto) {

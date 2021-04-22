@@ -1,5 +1,5 @@
-import { Body, Controller, Get, Param, Patch, Post, Delete } from '@nestjs/common';
-import { CreateRecordDto, UpdateRecordDto } from './record.dto';
+import { Body, Controller, Get, Param, Patch, Post, Delete, UsePipes, ValidationPipe } from '@nestjs/common';
+import { CreateRecordDto, DeleteRecordParams, UpdateRecordDto } from './record.dto';
 import { RecordService } from './record.service';
 
 @Controller('record')
@@ -14,7 +14,7 @@ export class RecordController {
 
 	@Post('new')
 	async createRecord(@Body() dto: CreateRecordDto) {
-		return await this.recordService.create(dto)
+		return await this.recordService.create(dto);
 	}
 
 	@Patch(':id/update')
@@ -23,7 +23,8 @@ export class RecordController {
 	}
 
 	@Delete(':id/delete')
-	async deleteRecord(@Param('id') id: string) {
+	async deleteRecord(@Param() params: DeleteRecordParams) {
+		const { id } = params;
 		return this.recordService.deleteById(id); 
 	}
 }

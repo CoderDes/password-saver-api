@@ -9,7 +9,7 @@ export class RecordModel extends TimeStamps {
 	title: string;
 
 	@prop()
-	passwordHash: string;
+	password: string;
 
 	@prop()
 	userId: Types.ObjectId;
