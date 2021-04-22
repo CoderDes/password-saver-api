@@ -4,12 +4,10 @@ export class UserRegisterDto {
 }
 
 export class UserUpdatePasswordDto {
-	userId: string;
 	oldPassword: string;
 	newPassword: string;
 }
 
 export class UserDeleteDto {
-	userId: string;
 	password: string;
 }

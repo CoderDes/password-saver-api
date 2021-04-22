@@ -16,4 +16,8 @@ export class UserService {
 	async deleteUser(id: string) {
 		return this.userModel.deleteOne({ _id: Types.ObjectId(id) }).exec();
 	}
+
+	async findUserById(id: string) {
+		return this.userModel.findById(id);
+	}
 }
