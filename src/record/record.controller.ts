@@ -1,26 +1,29 @@
 import { Body, Controller, Get, Param, Patch, Post, Delete } from '@nestjs/common';
 import { CreateRecordDto, UpdateRecordDto } from './record.dto';
+import { RecordService } from './record.service';
 
 @Controller('record')
 export class RecordController {
 
-	@Get(':userId/all')
+	constructor(private readonly recordService: RecordService) {}
+
+	@Get('all/:userId')
 	async getAllRecords(@Param('userId') userId: string) {
-
+		return await this.recordService.getAllRecordsByUserId(userId);
 	}
 
-	@Post(':userId/new')
-	async createRecord(@Param('userId') userId: string, @Body() dto: CreateRecordDto) {
-
+	@Post('new')
+	async createRecord(@Body() dto: CreateRecordDto) {
+		return await this.recordService.create(dto)
 	}
 
-	@Patch(':userId/update')
-	async updateRecord(@Param('userId') userId: string, @Body() dto: UpdateRecordDto) {
-
+	@Patch(':id/update')
+	async updateRecord(@Body() dto: UpdateRecordDto) {
+		return await this.recordService.updateById(dto);
 	}
 
-	@Delete(':userId/delete')
-	async deleteRecord(@Param('userId') userId: string) {
-
+	@Delete(':id/delete')
+	async deleteRecord(@Param('id') id: string) {
+		return this.recordService.deleteById(id); 
 	}
 }
