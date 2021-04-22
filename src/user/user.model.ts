@@ -8,7 +8,7 @@ export class UserModel extends TimeStamps {
 	email: string;
 
 	@prop()
-	passwordHash: string;
+	password: string;
 
 	@prop({ type: () => RecordModel})
 	records: RecordModel;
