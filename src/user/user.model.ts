@@ -9,7 +9,4 @@ export class UserModel extends TimeStamps {
 
 	@prop()
 	password: string;
-
-	@prop({ type: () => RecordModel})
-	records: RecordModel;
 }

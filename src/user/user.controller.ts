@@ -1,4 +1,14 @@
-import { Body, Controller, Post, Patch, Delete, Param, BadRequestException, UseGuards } from '@nestjs/common';
+import { 
+	Body, 
+	Controller,
+	Get,
+	Post, 
+	Patch, 
+	Delete, 
+	Param, 
+	BadRequestException, 
+	UseGuards
+} from '@nestjs/common';
 import { UserDeleteDto, UserDeleteParams, UserLoginDto, UserRegisterDto, UserUpdatePasswordDto } from './user.dto';
 import { UserService } from './user.service';
 import { USER_EXIST_ERROR } from './user.constants';
@@ -41,5 +51,11 @@ export class UserController {
 		// hash input password and compare with user's from db password 
 
 		return await this.userService.deleteUser(id);
+	}
+
+	@UseGuards(JwtAuthGuard)
+	@Get(':userEmail/get-info')
+	async getUserInfo(@Param('userEmail') email: string) {
+		return await this.userService.getUserWithRecords(email);
 	}
 }

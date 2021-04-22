@@ -19,6 +19,7 @@ export class UserService {
 		const payload = { email };
 		return {
 			access_token: await this.jwtService.signAsync(payload),
+			email,
 		}
 	}
 	
@@ -58,5 +59,25 @@ export class UserService {
 
 	async findUserById(id: string) {
 		return this.userModel.findById(id);
+	}
+
+	async getUserWithRecords(email: string) {
+		return this.userModel.aggregate([
+			{
+				$match: {
+					email: email,
+				}
+			}, 
+			{
+				$lookup: {
+					from: 'Record',
+					localField: '_id',
+					foreignField: 'userId',
+					as: 'records'
+
+				}
+			}
+		])
+		.exec();
 	}
 }
