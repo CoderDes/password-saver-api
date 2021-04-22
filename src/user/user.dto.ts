@@ -10,6 +10,8 @@ export class UserRegisterDto {
 	password: string;
 }
 
+export class UserLoginDto extends UserRegisterDto {}
+
 export class UserUpdatePasswordDto {
 	@IsString()
 	@MinLength(6)

@@ -1,14 +1,28 @@
-import { Body, Controller, Post, Patch, Delete, Param } from '@nestjs/common';
-import { UserDeleteDto, UserDeleteParams, UserRegisterDto, UserUpdatePasswordDto } from './user.dto';
+import { Body, Controller, Post, Patch, Delete, Param, BadRequestException } from '@nestjs/common';
+import { UserDeleteDto, UserDeleteParams, UserLoginDto, UserRegisterDto, UserUpdatePasswordDto } from './user.dto';
 import { UserService } from './user.service';
+import { USER_EXIST_ERROR } from './user.constants';
 
 @Controller('user')
 export class UserController {
 
 	constructor(private readonly userService: UserService) {}
 
+	@Post('login')
+	async loginUser(@Body() dto: UserLoginDto) {
+		const { email } = await this.userService.validateUser(dto);
+		return await this.userService.loginUser(email);
+	}
+
 	@Post('register')
 	async registerUser(@Body() dto: UserRegisterDto) {
+		const { email } = dto;
+		const oldUser = await this.userService.findUserByEmail(email);
+
+		if (oldUser) {
+			throw new BadRequestException(USER_EXIST_ERROR);
+		}
+
 		return await this.userService.createUser(dto);
 	}
 
