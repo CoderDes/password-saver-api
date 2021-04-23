@@ -56,6 +56,8 @@ export class UserController {
 	@UseGuards(JwtAuthGuard)
 	@Get(':userEmail/get-info')
 	async getUserInfo(@Param('userEmail') email: string) {
-		return await this.userService.getUserWithRecords(email);
+		const aggregateResult = await this.userService.getUserWithRecords(email);
+		const userInfo = aggregateResult[0];
+		return userInfo;
 	}
 }
