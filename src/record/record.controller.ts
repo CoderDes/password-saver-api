@@ -30,6 +30,12 @@ export class RecordController {
 	@Delete(':id/delete')
 	async deleteRecord(@Param() params: DeleteRecordParams) {
 		const { id } = params;
-		return this.recordService.deleteById(id); 
+
+		const deleteResult = await this.recordService.deleteById(id);
+		if (deleteResult.deletedCount === 1) {
+			return { ...deleteResult, recordId: id };
+		}
+		
+		return deleteResult;
 	}
 }
