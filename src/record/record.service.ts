@@ -10,17 +10,12 @@ export class RecordService {
 	constructor(@InjectModel(RecordModel) private readonly recordModel: ModelType<RecordModel>) {}
 
 	async create(dto: CreateRecordDto): Promise<DocumentType<RecordModel>> {
-		// TODO: hash the password
-		const { password } = dto;
-		const hashedPassword = 'HASHED_PASSWORD_ON_CREATE';
-		return this.recordModel.create({...dto, password: hashedPassword });
+		return this.recordModel.create({...dto });
 	}
 
 	async updateById(dto: UpdateRecordDto) {
 		const { recordId, newPassword } = dto;
-		// TODO: hash the newPassword
-		const newPasswordHash = "NEW_PASSWORD_HASH_PLACEHOLDER";
-		return this.recordModel.findByIdAndUpdate(recordId, {passwordHash: newPasswordHash}, {new: true}).exec();
+		return this.recordModel.findByIdAndUpdate(recordId, {password: newPassword}, {new: true}).exec();
 	}
 
 	async deleteById(id: string) {
