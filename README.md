@@ -8,7 +8,23 @@
 ```bash
 $ npm install
 ```
-<strong>Before the start, check if you have launched locally MongoDB with user: mongo; password: mongo; on port 27017.</strong>
+<h3>Preparations</h3>
+<ul>
+  <li>run <code>npm i</code></li>
+  <li>
+     create <code>.env</code> file in the root directory of the project
+    <ul>
+      In that file set environment variables:
+      <li><code>MONGO_LOGIN</code></li>
+      <li><code>MONGO_PASSWORD</code></li>
+      <li><code>MONGO_HOST</code></li>
+      <li><code>MONGO_PORT</code></li>
+      <li><code>MONGO_AUTHDATABASE</code></li>
+      <li><code>JWT_SECRET</code></li>
+    </ul>
+  </li>
+</ul>
+<br />
 <p><a href="https://github.com/EugZ/password-saver-front">Front-end for that api</a></p>
 
 
